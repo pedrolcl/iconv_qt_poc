@@ -16,7 +16,7 @@
     along with this program.  If not, see <https://www.gnu.org/licenses/>.
 #]===========================================================================]
 
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.11)
 
 project(IconvQtPOC VERSION 0.1 LANGUAGES CXX)
 
@@ -27,10 +27,10 @@ set(CMAKE_AUTORCC ON)
 set(CMAKE_CXX_STANDARD 11)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 
-find_package(QT NAMES Qt6 Qt5 COMPONENTS Widgets REQUIRED)
+find_package(QT NAMES Qt6 Qt5 REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
-
-find_package( PkgConfig )
+find_package(Iconv REQUIRED)
+find_package(PkgConfig REQUIRED)
 pkg_check_modules( UCHARDET REQUIRED IMPORTED_TARGET uchardet )
 
 add_executable(IconvQtPOC
@@ -42,7 +42,8 @@ add_executable(IconvQtPOC
     mainwindow.ui
 )
 
-target_link_libraries(IconvQtPOC PRIVATE 
+target_link_libraries(IconvQtPOC PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
     PkgConfig::UCHARDET
+    Iconv::Iconv
 )
