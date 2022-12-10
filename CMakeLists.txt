@@ -30,8 +30,7 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 find_package(QT NAMES Qt6 Qt5 REQUIRED)
 find_package(Qt${QT_VERSION_MAJOR} COMPONENTS Widgets REQUIRED)
 find_package(Iconv REQUIRED)
-find_package(PkgConfig REQUIRED)
-pkg_check_modules( UCHARDET REQUIRED IMPORTED_TARGET uchardet )
+find_package(uchardet 0.0.8 COMPONENTS libuchardet REQUIRED)
 
 add_executable(IconvQtPOC
     iconvconverter.cpp
@@ -44,6 +43,6 @@ add_executable(IconvQtPOC
 
 target_link_libraries(IconvQtPOC PRIVATE
     Qt${QT_VERSION_MAJOR}::Widgets
-    PkgConfig::UCHARDET
+    uchardet::libuchardet
     Iconv::Iconv
 )
